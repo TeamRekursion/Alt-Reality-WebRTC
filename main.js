@@ -85,6 +85,7 @@ callButton.onclick = async() => {
   await pc.setLocalDescription(offerDescription);
 
   const offer = {
+    id: "1",
     sdp: offerDescription.sdp,
     type: offerDescription.type,
   };
@@ -97,6 +98,7 @@ callButton.onclick = async() => {
     if (!pc.currentRemoteDescription && data.answer) {
       const answerDescription = new RTCSessionDescription(data.answer);
       pc.setRemoteDescription(answerDescription);
+      console.log(data.answer);
     }
   });
 
@@ -105,6 +107,7 @@ callButton.onclick = async() => {
     snapshot.docChanges().forEach((change) => {
       if (change.type === 'added') {
         const candidate = new RTCIceCandidate(change.doc.data());
+        console.log(change.doc.data());
         pc.addIceCandidate(candidate);
       }
     });
